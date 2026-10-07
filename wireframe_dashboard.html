@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wireframe Dashboard de Medición Digital - Corporación Jesús Niño</title>
+  <!-- Tailwind CSS -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --corpo-blue: #000FA0;
+      --corpo-blue-light: #016CE6;
+      --corpo-yellow: #FDDB00;
+      --corpo-yellow-gold: #FFCE02;
+      --corpo-coral: #E86A78;
+      --corpo-sky: #4C86C6;
+      --corpo-green: #69A57C;
+      --wire-bg: #F8FAFC;
+      --wire-card: #FFFFFF;
+      --wire-border: #CBD5E1;
+      --wire-text: #1E293B;
+    }
+
+    body {
+      background-color: var(--wire-bg);
+      color: var(--wire-text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* Trama sutil de retícula para wireframe profesional */
+    .blueprint-grid {
+      background-image: 
+        radial-gradient(#CBD5E1 0.75px, transparent 0.75px),
+        radial-gradient(#E2E8F0 0.75px, var(--wire-bg) 0.75px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+    }
+
+    .dashed-guide {
+      border: 1.5px dashed #94A3B8;
+    }
+  </style>
+</head>
+<body class="blueprint-grid antialiased p-4 md:p-7">
+
+  <div class="max-w-7xl mx-auto space-y-6">
+
+    <!-- ========================================================= -->
+    <!-- ENCABEZADO INSTITUCIONAL                                  -->
+    <!-- ========================================================= -->
+    <header class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 md:p-6">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+        
+        <!-- Identidad y Título -->
+        <div class="flex items-center space-x-4">
+          <!-- Logo oficial de la Corporación Jesús Niño -->
+          <div class="h-14 w-auto flex items-center justify-center bg-slate-50 border border-slate-200 rounded-xl p-2 px-3 shadow-inner">
+            <img src="./marca_corpo_JN.png" alt="Corporación Jesús Niño" class="h-10 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';">
+            <div id="logo-fallback" style="display: none;" class="items-center space-x-2 font-bold text-[#000FA0]">
+              <svg class="w-8 h-8 text-[#000FA0]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm3 9h-6v-1c0-1.33 2-2 3-2s3 .67 3 2v1z"/>
+              </svg>
+              <span>Jesús Niño</span>
+            </div>
+          </div>
+          
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-[#000FA0] border border-blue-200">
+                PROPUESTA DE MEDICIÓN DIGITAL
+              </span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                Estructura Futura &bull; Sin Datos Previos
+              </span>
+            </div>
+            <h1 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">Dashboard de Medición Digital</h1>
+            <p class="text-xs md:text-sm text-slate-500 font-medium">Corporación Jesús Niño &bull; Modelo de Seguimiento para Canales Digitales</p>
+          </div>
+        </div>
+
+        <!-- Indicador Obligatorio de Frecuencia y Metodología -->
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Frecuencia de Actualización -->
+          <div class="flex items-center space-x-2.5 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+            <div class="w-2.5 h-2.5 rounded-full bg-blue-600"></div>
+            <div>
+              <span class="text-slate-500 block font-normal leading-tight">Periodicidad</span>
+              <span class="font-bold text-slate-800">Frecuencia de actualización: mensual</span>
+            </div>
+          </div>
+
+          <!-- Estado Metodológico -->
+          <div class="px-4 py-2.5 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-amber-950">
+            <span class="text-amber-700 block font-normal leading-tight">Condición actual</span>
+            <span class="font-bold">Líneas base por definir</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navegación entre Vistas (Tabs) -->
+      <div class="mt-6 pt-5 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <nav class="flex space-x-2 p-1 bg-slate-100 rounded-xl border border-slate-200 w-full sm:w-auto" role="tablist">
+          <button id="btn-tab-ejecutiva" onclick="switchView('ejecutiva')" class="flex-1 sm:flex-initial px-5 py-2 rounded-lg text-sm font-semibold transition-all bg-white text-[#000FA0] shadow-sm border border-slate-200">
+            Vista Ejecutiva
+          </button>
+          <button id="btn-tab-detalle" onclick="switchView('detalle')" class="flex-1 sm:flex-initial px-5 py-2 rounded-lg text-sm font-medium transition-all text-slate-600 hover:text-slate-900">
+            Vista de Detalle
+          </button>
+        </nav>
+
+        <div class="text-xs text-slate-500 flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-slate-400"></span>
+          <span>Herramientas identificadas como fuentes propuestas sujetas a verificación</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================= -->
+    <!-- FILTROS GLOBALES SUPERIORES                               -->
+    <!-- ========================================================= -->
+    <section class="bg-white rounded-2xl border border-slate-300 shadow-sm p-4 md:p-5">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <svg class="w-4 h-4 text-[#000FA0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+          </svg>
+          Filtros de Visualización
+        </span>
+        <span class="text-xs text-slate-400">Filtros aplicables a la vista actual</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <!-- Filtro 1: Período -->
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-700 block">Período</label>
+          <div class="relative">
+            <select class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer">
+              <option selected>[Seleccionar período: Corte mensual]</option>
+              <option>Mes en evaluación (Cierre mensual)</option>
+              <option>Bimestre comparativo</option>
+              <option>Trimestre móvil</option>
+              <option>Semestre consolidado</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Filtro 2: Canal digital -->
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-700 block">Canal digital</label>
+          <div class="relative">
+            <select class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer">
+              <option selected>Todos los canales digitales</option>
+              <option>Sitio Web (Búsqueda orgánica)</option>
+              <option>Instagram (Enlace de perfil)</option>
+              <option>Instagram (Historias / Contenido)</option>
+              <option>Otros canales / Directo</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Filtro 3: Tipo de conversión -->
+        <div class="space-y-1.5">
+          <label class="text-xs font-semibold text-slate-700 block">Tipo de conversión</label>
+          <div class="relative">
+            <select class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer">
+              <option selected>Todas las conversiones</option>
+              <option>Contacto (Consultas y mensajes)</option>
+              <option>Voluntariado (Inscripciones de apoyo)</option>
+              <option>Colaboración/donación (Aportes institucionales)</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- SECCIÓN 1: VISTA EJECUTIVA                                -->
+    <!-- ========================================================= -->
+    <div id="view-ejecutiva" class="space-y-6">
+
+      <!-- Título de Sección -->
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg md:text-xl font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2.5 h-6 bg-[#000FA0] rounded-sm inline-block"></span>
+            Vista Ejecutiva: Resumen de Indicadores Clave
+          </h2>
+          <p class="text-xs md:text-sm text-slate-500">Estructura de seguimiento de los 6 KPIs estratégicos de la corporación.</p>
+        </div>
+        <span class="text-xs font-mono bg-slate-100 text-slate-600 border border-slate-200 px-3 py-1 rounded-md">6 KPIs Clave</span>
+      </div>
+
+      <!-- 6 TARJETAS DE KPI -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        
+        <!-- KPI 1: Clics orgánicos al sitio web -->
+        <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-[#000FA0]"></div>
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <span class="w-6 h-6 rounded-md bg-blue-50 text-[#000FA0] flex items-center justify-center font-bold text-xs border border-blue-100">01</span>
+              <span class="text-[11px] text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-right">
+                Fuente propuesta: Google Search Console (Acceso por verificar)
+              </span>
+            </div>
+            
+            <h3 class="text-sm font-bold text-slate-800 mt-2.5">Clics orgánicos al sitio web</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Usuarios que acceden mediante resultados de búsqueda orgánica</p>
+
+            <!-- Espacio: Resultado Actual -->
+            <div class="mt-4 p-4 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-center">
+              <span class="text-[11px] uppercase tracking-wider text-slate-500 block font-semibold">Resultado Actual</span>
+              <span class="text-base font-bold text-slate-700 block mt-1">Línea base por definir</span>
+            </div>
+          </div>
+
+          <!-- Comparativas requeridas estrictas -->
+          <div class="mt-4 pt-3 border-t border-slate-100 space-y-2 text-xs">
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Período anterior:</span>
+              <span class="font-semibold text-slate-700">Período anterior: --</span>
+            </div>
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Meta:</span>
+              <span class="font-semibold text-slate-700">Meta por definir</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI 2: Clics en el enlace del perfil de Instagram -->
+        <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-[#E86A78]"></div>
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <span class="w-6 h-6 rounded-md bg-pink-50 text-[#E86A78] flex items-center justify-center font-bold text-xs border border-pink-100">02</span>
+              <span class="text-[11px] text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-right">
+                Fuente propuesta: Estadísticas de Instagram (Acceso por verificar)
+              </span>
+            </div>
+            
+            <h3 class="text-sm font-bold text-slate-800 mt-2.5">Clics en el enlace del perfil de Instagram</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Pulsaciones en el enlace principal del perfil institucional</p>
+
+            <!-- Espacio: Resultado Actual -->
+            <div class="mt-4 p-4 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-center">
+              <span class="text-[11px] uppercase tracking-wider text-slate-500 block font-semibold">Resultado Actual</span>
+              <span class="text-base font-bold text-slate-700 block mt-1">Línea base por definir</span>
+            </div>
+          </div>
+
+          <!-- Comparativas requeridas estrictas -->
+          <div class="mt-4 pt-3 border-t border-slate-100 space-y-2 text-xs">
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Período anterior:</span>
+              <span class="font-semibold text-slate-700">Período anterior: --</span>
+            </div>
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Meta:</span>
+              <span class="font-semibold text-slate-700">Meta por definir</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI 3: Tasa de interacción en Instagram -->
+        <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-[#FDDB00]"></div>
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <span class="w-6 h-6 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center font-bold text-xs border border-amber-200">03</span>
+              <span class="text-[11px] text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-right">
+                Fuente propuesta: Estadísticas de Instagram (Acceso por verificar)
+              </span>
+            </div>
+            
+            <h3 class="text-sm font-bold text-slate-800 mt-2.5">Tasa de interacción en Instagram</h3>
+            
+            <!-- Fórmula institucional requerida -->
+            <div class="mt-1.5 p-1.5 rounded-lg bg-amber-50/60 border border-amber-200/80 text-[11px] text-amber-900 font-mono">
+              Fórmula: (Interacciones del contenido ÷ Alcance del contenido) &times; 100
+            </div>
+
+            <!-- Espacio: Resultado Actual -->
+            <div class="mt-3.5 p-4 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-center">
+              <span class="text-[11px] uppercase tracking-wider text-slate-500 block font-semibold">Resultado Actual</span>
+              <span class="text-base font-bold text-slate-700 block mt-1">Línea base por definir</span>
+            </div>
+          </div>
+
+          <!-- Comparativas requeridas estrictas -->
+          <div class="mt-4 pt-3 border-t border-slate-100 space-y-2 text-xs">
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Período anterior:</span>
+              <span class="font-semibold text-slate-700">Período anterior: --</span>
+            </div>
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Meta:</span>
+              <span class="font-semibold text-slate-700">Meta por definir</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI 4: Visitas al sitio web provenientes de Instagram -->
+        <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-[#4C86C6]"></div>
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <span class="w-6 h-6 rounded-md bg-sky-50 text-[#4C86C6] flex items-center justify-center font-bold text-xs border border-sky-100">04</span>
+              <span class="text-[11px] text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-right">
+                Fuente propuesta: Analítica web (Implementación por verificar)
+              </span>
+            </div>
+            
+            <h3 class="text-sm font-bold text-slate-800 mt-2.5">Visitas al sitio web provenientes de Instagram</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Sesiones iniciadas en la web referidas desde canales de Instagram</p>
+
+            <!-- Espacio: Resultado Actual -->
+            <div class="mt-4 p-4 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-center">
+              <span class="text-[11px] uppercase tracking-wider text-slate-500 block font-semibold">Resultado Actual</span>
+              <span class="text-base font-bold text-slate-700 block mt-1">Línea base por definir</span>
+            </div>
+          </div>
+
+          <!-- Comparativas requeridas estrictas -->
+          <div class="mt-4 pt-3 border-t border-slate-100 space-y-2 text-xs">
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Período anterior:</span>
+              <span class="font-semibold text-slate-700">Período anterior: --</span>
+            </div>
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Meta:</span>
+              <span class="font-semibold text-slate-700">Meta por definir</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI 5: Envíos de formularios -->
+        <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-[#69A57C]"></div>
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <span class="w-6 h-6 rounded-md bg-emerald-50 text-[#69A57C] flex items-center justify-center font-bold text-xs border border-emerald-100">05</span>
+              <span class="text-[11px] text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-right">
+                Fuente propuesta: Formularios web (Medición por verificar)
+              </span>
+            </div>
+            
+            <h3 class="text-sm font-bold text-slate-800 mt-2.5">Envíos de formularios</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Respuestas recibidas: contacto, voluntariado y colaboración/donación</p>
+
+            <!-- Espacio: Resultado Actual -->
+            <div class="mt-4 p-4 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-center">
+              <span class="text-[11px] uppercase tracking-wider text-slate-500 block font-semibold">Resultado Actual</span>
+              <span class="text-base font-bold text-slate-700 block mt-1">Línea base por definir</span>
+            </div>
+          </div>
+
+          <!-- Comparativas requeridas estrictas -->
+          <div class="mt-4 pt-3 border-t border-slate-100 space-y-2 text-xs">
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Período anterior:</span>
+              <span class="font-semibold text-slate-700">Período anterior: --</span>
+            </div>
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Meta:</span>
+              <span class="font-semibold text-slate-700">Meta por definir</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI 6: Tasa de conversión del sitio web -->
+        <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-[#016CE6]"></div>
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <span class="w-6 h-6 rounded-md bg-blue-50 text-[#016CE6] flex items-center justify-center font-bold text-xs border border-blue-200">06</span>
+              <span class="text-[11px] text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-right">
+                Fuente propuesta: Analítica web (Implementación por verificar)
+              </span>
+            </div>
+            
+            <h3 class="text-sm font-bold text-slate-800 mt-2.5">Tasa de conversión del sitio web</h3>
+            
+            <!-- Fórmula institucional -->
+            <div class="mt-1.5 p-1.5 rounded-lg bg-blue-50/60 border border-blue-200/80 text-[11px] text-blue-900 font-mono">
+              Fórmula: (Número de sesiones con una conversión definida ÷ Total de sesiones del sitio web) &times; 100
+            </div>
+
+            <!-- Espacio: Resultado Actual -->
+            <div class="mt-3.5 p-4 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-center">
+              <span class="text-[11px] uppercase tracking-wider text-slate-500 block font-semibold">Resultado Actual</span>
+              <span class="text-base font-bold text-slate-700 block mt-1">Línea base por definir</span>
+            </div>
+          </div>
+
+          <!-- Comparativas requeridas estrictas -->
+          <div class="mt-4 pt-3 border-t border-slate-100 space-y-2 text-xs">
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Período anterior:</span>
+              <span class="font-semibold text-slate-700">Período anterior: --</span>
+            </div>
+            <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium">Meta:</span>
+              <span class="font-semibold text-slate-700">Meta por definir</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================= -->
+      <!-- GRÁFICOS DE LÍNEA DE VISTA EJECUTIVA                      -->
+      <!-- ========================================================= -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Gráfico de línea: Evolución de clics orgánicos -->
+        <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 flex flex-col justify-between">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-[#000FA0]">Serie Temporal Propuesta</span>
+              <h3 class="text-base font-bold text-slate-900">Evolución de clics orgánicos</h3>
+              <p class="text-xs text-slate-500">Tendencia mensual de clics provenientes de buscadores</p>
+            </div>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md border border-slate-200">Gráfico de línea</span>
+          </div>
+
+          <!-- Contenedor del Wireframe del Gráfico -->
+          <div class="mt-4 h-64 w-full bg-slate-50 rounded-xl border border-dashed border-slate-300 p-4 relative flex flex-col justify-between overflow-hidden">
+            <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+              <span>[Eje Y: Clics orgánicos]</span>
+              <span>Fuente propuesta: Google Search Console (Acceso por verificar)</span>
+              <span>Espacio reservado</span>
+            </div>
+
+            <!-- Estructura visual de Wireframe para Gráfico de Línea -->
+            <div class="relative flex-1 my-2 flex items-center justify-center">
+              <!-- Rejilla técnica de fondo -->
+              <div class="absolute inset-0 flex flex-col justify-between opacity-30 pointer-events-none">
+                <div class="border-b border-slate-300 w-full"></div>
+                <div class="border-b border-slate-300 w-full"></div>
+                <div class="border-b border-slate-300 w-full"></div>
+              </div>
+
+              <!-- Cartel Central Esquemático sin tendencia previa -->
+              <div class="absolute bg-white border border-slate-300 shadow-sm rounded-xl px-4 py-2.5 text-center">
+                <span class="text-xs font-bold text-slate-800 block">Línea base por definir</span>
+                <span class="text-[11px] text-slate-500 block mt-0.5">Espacio reservado para gráfico &bull; Sin tendencia simulada</span>
+              </div>
+            </div>
+
+            <!-- Eje X: Meses de corte mensual -->
+            <div class="flex justify-between text-[11px] text-slate-500 font-mono pt-2 border-t border-slate-200">
+              <span>Mes 1 (Inicio)</span>
+              <span>Mes 2</span>
+              <span>Mes 3</span>
+              <span>Mes 4</span>
+              <span>Mes 5</span>
+              <span>Mes 6</span>
+            </div>
+          </div>
+
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+            <span>Período anterior: --</span>
+            <span>Meta por definir</span>
+          </div>
+        </div>
+
+        <!-- Gráfico de línea: Visitas al sitio desde Instagram -->
+        <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 flex flex-col justify-between">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-[#4C86C6]">Tráfico Referido Propuesto</span>
+              <h3 class="text-base font-bold text-slate-900">Visitas al sitio desde Instagram</h3>
+              <p class="text-xs text-slate-500">Tendencia mensual de sesiones originadas en Instagram</p>
+            </div>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md border border-slate-200">Gráfico de línea</span>
+          </div>
+
+          <!-- Contenedor del Wireframe del Gráfico -->
+          <div class="mt-4 h-64 w-full bg-slate-50 rounded-xl border border-dashed border-slate-300 p-4 relative flex flex-col justify-between overflow-hidden">
+            <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+              <span>[Eje Y: Visitas web]</span>
+              <span>Fuente propuesta: Analítica web (Implementación por verificar)</span>
+              <span>Espacio reservado</span>
+            </div>
+
+            <!-- Estructura visual de Wireframe para Gráfico de Línea -->
+            <div class="relative flex-1 my-2 flex items-center justify-center">
+              <div class="absolute inset-0 flex flex-col justify-between opacity-30 pointer-events-none">
+                <div class="border-b border-slate-300 w-full"></div>
+                <div class="border-b border-slate-300 w-full"></div>
+                <div class="border-b border-slate-300 w-full"></div>
+              </div>
+
+              <!-- Cartel Central Esquemático sin tendencia previa -->
+              <div class="absolute bg-white border border-slate-300 shadow-sm rounded-xl px-4 py-2.5 text-center">
+                <span class="text-xs font-bold text-slate-800 block">Línea base por definir</span>
+                <span class="text-[11px] text-slate-500 block mt-0.5">Espacio reservado para gráfico &bull; Sin tendencia simulada</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between text-[11px] text-slate-500 font-mono pt-2 border-t border-slate-200">
+              <span>Mes 1 (Inicio)</span>
+              <span>Mes 2</span>
+              <span>Mes 3</span>
+              <span>Mes 4</span>
+              <span>Mes 5</span>
+              <span>Mes 6</span>
+            </div>
+          </div>
+
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-500">
+            <span>Período anterior: --</span>
+            <span>Meta por definir</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================= -->
+      <!-- SECCIÓN DE CONVERSIONES (Vista Ejecutiva)                -->
+      <!-- ========================================================= -->
+      <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 md:p-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#69A57C]">Objetivos del Sitio Web</span>
+            <h3 class="text-base md:text-lg font-bold text-slate-900">Sección de Conversiones</h3>
+            <p class="text-xs text-slate-500">Categorías generales definidas en el informe (contacto, voluntariado y colaboración/donación)</p>
+          </div>
+          <span class="text-xs text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-lg">
+            Implementación y medición técnica por verificar
+          </span>
+        </div>
+
+        <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Bloque 1: Envíos de formularios -->
+          <div class="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-bold text-slate-800">Envíos de formularios</h4>
+              <span class="text-[11px] text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">Total acumulado</span>
+            </div>
+
+            <div class="p-4 bg-white rounded-xl border border-dashed border-slate-300 text-center">
+              <span class="text-xs text-slate-500 block font-semibold uppercase">Total General</span>
+              <span class="text-base font-bold text-slate-800 block mt-1">Línea base por definir</span>
+            </div>
+
+            <!-- Desglose por las tres categorías generales requeridas -->
+            <div class="space-y-2 pt-2 text-xs">
+              <div class="p-2 bg-white rounded-lg border border-slate-200 flex justify-between items-center">
+                <span class="font-medium text-slate-700">1. Contacto:</span>
+                <span class="font-bold text-slate-700">Línea base por definir</span>
+              </div>
+              <div class="p-2 bg-white rounded-lg border border-slate-200 flex justify-between items-center">
+                <span class="font-medium text-slate-700">2. Voluntariado:</span>
+                <span class="font-bold text-slate-700">Línea base por definir</span>
+              </div>
+              <div class="p-2 bg-white rounded-lg border border-slate-200 flex justify-between items-center">
+                <span class="font-medium text-slate-700">3. Colaboración/donación:</span>
+                <span class="font-bold text-slate-700">Línea base por definir</span>
+              </div>
+            </div>
+
+            <div class="pt-2 flex justify-between text-xs text-slate-500 border-t border-slate-200">
+              <span>Período anterior: --</span>
+              <span>Meta por definir</span>
+            </div>
+          </div>
+
+          <!-- Bloque 2: Tasa de conversión del sitio web -->
+          <div class="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-bold text-slate-800">Tasa de conversión</h4>
+              <span class="text-[11px] text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">Efectividad %</span>
+            </div>
+
+            <div class="p-4 bg-white rounded-xl border border-dashed border-slate-300 text-center">
+              <span class="text-xs text-slate-500 block font-semibold uppercase">Tasa Global del Sitio</span>
+              <span class="text-base font-bold text-slate-800 block mt-1">Línea base por definir</span>
+            </div>
+
+            <!-- Fórmula y contexto metodológico -->
+            <div class="p-2.5 bg-white rounded-lg border border-slate-200 text-xs space-y-1">
+              <span class="font-semibold text-slate-700 block">Cálculo propuesto:</span>
+              <span class="font-mono text-slate-600 block text-[11px]">(Número de sesiones con una conversión definida ÷ Total de sesiones del sitio web) &times; 100</span>
+              <p class="text-[11px] text-slate-400 mt-1">Sujeto a la configuración y validación de la herramienta de analítica web.</p>
+            </div>
+
+            <div class="pt-2 flex justify-between text-xs text-slate-500 border-t border-slate-200">
+              <span>Período anterior: --</span>
+              <span>Meta por definir</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- SECCIÓN 2: VISTA DE DETALLE                               -->
+    <!-- ========================================================= -->
+    <div id="view-detalle" class="space-y-6 hidden">
+
+      <!-- Encabezado de la Vista de Detalle -->
+      <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 md:p-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+          <div>
+            <h2 class="text-lg md:text-xl font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-6 bg-[#016CE6] rounded-sm inline-block"></span>
+              Vista de Detalle: Análisis Específico y Comparativo
+            </h2>
+            <p class="text-xs md:text-sm text-slate-500">Profundización analítica por período, canal y tipo de conversión para la Corporación Jesús Niño.</p>
+          </div>
+          <span class="text-xs font-mono bg-blue-50 text-blue-800 border border-blue-200 px-3 py-1.5 rounded-lg self-start md:self-center">
+            Módulo Analítico
+          </span>
+        </div>
+
+        <!-- FILTROS PROPIOS DE LA VISTA DE DETALLE -->
+        <div class="mt-4 pt-1">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-600 block mb-3">Filtros de Profundización</span>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <div>
+              <label class="text-xs font-semibold text-slate-700 block mb-1">Período</label>
+              <select class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-medium text-slate-800">
+                <option selected>[Seleccionar: Mes 1 vs Mes 2]</option>
+                <option>Mes actual vs Período anterior</option>
+                <option>Trimestre en curso</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-xs font-semibold text-slate-700 block mb-1">Canal digital</label>
+              <select class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-medium text-slate-800">
+                <option selected>Todos los canales</option>
+                <option>Sitio Web (Búsqueda orgánica)</option>
+                <option>Instagram (Enlace de perfil)</option>
+                <option>Instagram (Historias / Contenido)</option>
+                <option>Directo / Otros</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-xs font-semibold text-slate-700 block mb-1">Tipo de conversión</label>
+              <select class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-medium text-slate-800">
+                <option selected>Todas las categorías</option>
+                <option>Contacto</option>
+                <option>Voluntariado</option>
+                <option>Colaboración/donación</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 1. EVOLUCIÓN DE KPI POR PERÍODO (Gráficos de línea) -->
+      <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 md:p-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#000FA0]">Evolución Temporal</span>
+            <h3 class="text-base md:text-lg font-bold text-slate-900">Evolución de KPI por período</h3>
+            <p class="text-xs text-slate-500">Gráficos de línea para seguimiento de la tendencia temporal de los indicadores</p>
+          </div>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md border border-slate-200">Gráficos de línea</span>
+        </div>
+
+        <!-- Wireframe de Gráfico de Línea Temporal -->
+        <div class="mt-5 h-72 w-full bg-slate-50 rounded-xl border border-dashed border-slate-300 p-4 relative flex flex-col justify-between overflow-hidden">
+          <div class="flex justify-between text-xs text-slate-400 font-mono">
+            <span>[Eje Y: Valores de KPI a registrar]</span>
+            <span class="text-slate-600 font-sans font-semibold">Trazado temporal mes a mes</span>
+            <span>Meta por definir</span>
+          </div>
+
+          <div class="relative flex-1 my-3 flex items-center justify-center">
+            <!-- Rejilla técnica -->
+            <div class="absolute inset-0 flex flex-col justify-between opacity-30 pointer-events-none">
+              <div class="border-b border-slate-300 w-full"></div>
+              <div class="border-b border-slate-300 w-full"></div>
+              <div class="border-b border-slate-300 w-full"></div>
+            </div>
+
+            <!-- Cartel Central Esquemático sin tendencia previa -->
+            <div class="absolute bg-white border border-slate-300 shadow-sm rounded-xl px-4 py-2.5 text-center">
+              <span class="text-xs font-bold text-slate-800 block">Línea base por definir</span>
+              <span class="text-[11px] text-slate-500 block mt-0.5">Espacio reservado para gráfico &bull; Sin tendencia simulada</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between text-xs text-slate-500 font-mono pt-2 border-t border-slate-200">
+            <span>Mes 1 (Inicio)</span>
+            <span>Mes 2</span>
+            <span>Mes 3</span>
+            <span>Mes 4</span>
+            <span>Mes 5</span>
+            <span>Mes 6</span>
+          </div>
+        </div>
+
+        <!-- Leyenda con los 6 KPIs estrictos -->
+        <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+          <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+            <span class="font-bold text-slate-700 block truncate">1. Clics orgánicos web</span>
+            <span class="text-slate-500 text-[11px]">Línea base por definir</span>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+            <span class="font-bold text-slate-700 block truncate">2. Clics enlace perfil IG</span>
+            <span class="text-slate-500 text-[11px]">Línea base por definir</span>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+            <span class="font-bold text-slate-700 block truncate">3. Tasa interacción IG</span>
+            <span class="text-slate-500 text-[11px]">Línea base por definir</span>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+            <span class="font-bold text-slate-700 block truncate">4. Visitas desde IG</span>
+            <span class="text-slate-500 text-[11px]">Línea base por definir</span>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+            <span class="font-bold text-slate-700 block truncate">5. Envíos formularios</span>
+            <span class="text-slate-500 text-[11px]">Línea base por definir</span>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+            <span class="font-bold text-slate-700 block truncate">6. Tasa conversión web</span>
+            <span class="text-slate-500 text-[11px]">Línea base por definir</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. COMPARACIÓN DE RESULTADOS POR CANAL (Gráficos de barras) -->
+      <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 md:p-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#016CE6]">Comparación de Canales</span>
+            <h3 class="text-base md:text-lg font-bold text-slate-900">Comparación de resultados por canal</h3>
+            <p class="text-xs text-slate-500">Gráficos de barras para comparar la captación entre búsqueda orgánica, Instagram y otros canales</p>
+          </div>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md border border-slate-200">Gráficos de barras</span>
+        </div>
+
+        <div class="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Contenedor del gráfico de barras esquemático -->
+          <div class="lg:col-span-2 h-72 bg-slate-50 rounded-xl border border-dashed border-slate-300 p-4 flex flex-col justify-between relative overflow-hidden">
+            <div class="flex justify-between text-xs text-slate-400 font-mono">
+              <span>[Eje Y: Volumen a comparar]</span>
+              <span>Comparación por canal digital</span>
+              <span>Meta por definir</span>
+            </div>
+
+            <!-- Barras esquemáticas de wireframe neutras -->
+            <div class="flex-1 my-3 flex items-end justify-around px-4 gap-4 relative">
+              <div class="absolute inset-0 flex flex-col justify-between opacity-30 pointer-events-none">
+                <div class="border-b border-slate-300 w-full"></div>
+                <div class="border-b border-slate-300 w-full"></div>
+              </div>
+
+              <!-- Barra Canal 1 -->
+              <div class="flex flex-col items-center flex-1 h-full justify-end">
+                <div class="w-full max-w-[60px] bg-white rounded-t-lg border-2 border-dashed border-[#000FA0]/40 flex items-center justify-center p-2 text-center" style="height: 60%;">
+                  <span class="text-[10px] text-slate-500 font-medium leading-tight">Línea base por definir</span>
+                </div>
+                <span class="text-xs font-bold text-slate-700 mt-2 text-center">Sitio Web Orgánico</span>
+                <span class="text-[10px] text-slate-400">Buscadores</span>
+              </div>
+
+              <!-- Barra Canal 2 -->
+              <div class="flex flex-col items-center flex-1 h-full justify-end">
+                <div class="w-full max-w-[60px] bg-white rounded-t-lg border-2 border-dashed border-[#E86A78]/50 flex items-center justify-center p-2 text-center" style="height: 60%;">
+                  <span class="text-[10px] text-slate-500 font-medium leading-tight">Línea base por definir</span>
+                </div>
+                <span class="text-xs font-bold text-slate-700 mt-2 text-center">Instagram Perfil</span>
+                <span class="text-[10px] text-slate-400">Enlace bio</span>
+              </div>
+
+              <!-- Barra Canal 3 -->
+              <div class="flex flex-col items-center flex-1 h-full justify-end">
+                <div class="w-full max-w-[60px] bg-white rounded-t-lg border-2 border-dashed border-[#4C86C6]/50 flex items-center justify-center p-2 text-center" style="height: 60%;">
+                  <span class="text-[10px] text-slate-500 font-medium leading-tight">Línea base por definir</span>
+                </div>
+                <span class="text-xs font-bold text-slate-700 mt-2 text-center">Instagram Historias</span>
+                <span class="text-[10px] text-slate-400">Contenido social</span>
+              </div>
+
+              <!-- Barra Canal 4 -->
+              <div class="flex flex-col items-center flex-1 h-full justify-end">
+                <div class="w-full max-w-[60px] bg-white rounded-t-lg border-2 border-dashed border-slate-400 flex items-center justify-center p-2 text-center" style="height: 60%;">
+                  <span class="text-[10px] text-slate-500 font-medium leading-tight">Línea base por definir</span>
+                </div>
+                <span class="text-xs font-bold text-slate-700 mt-2 text-center">Directo / Otros</span>
+                <span class="text-[10px] text-slate-400">Canales adicionales</span>
+              </div>
+
+            </div>
+
+            <div class="text-center text-xs text-slate-500 pt-2 border-t border-slate-200">
+              <span>Período anterior: -- &bull; Meta por definir</span>
+            </div>
+          </div>
+
+          <!-- Matriz de Fuentes y Canales -->
+          <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col justify-between">
+            <div>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">Fuentes Propuestas por Canal</h4>
+              <div class="space-y-2 text-xs">
+                
+                <div class="p-2.5 bg-white rounded-lg border border-slate-200">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-800">Sitio Web (Orgánico)</span>
+                    <span class="font-bold text-slate-600">Línea base por definir</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Fuente propuesta: Google Search Console (Acceso por verificar)</span>
+                </div>
+
+                <div class="p-2.5 bg-white rounded-lg border border-slate-200">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-800">Instagram Perfil</span>
+                    <span class="font-bold text-slate-600">Línea base por definir</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Fuente propuesta: Estadísticas de Instagram (Acceso por verificar)</span>
+                </div>
+
+                <div class="p-2.5 bg-white rounded-lg border border-slate-200">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-800">Instagram Historias</span>
+                    <span class="font-bold text-slate-600">Línea base por definir</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Fuente propuesta: Analítica web / Estadísticas (Por verificar)</span>
+                </div>
+
+                <div class="p-2.5 bg-white rounded-lg border border-slate-200">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-slate-800">Directo / Otros</span>
+                    <span class="font-bold text-slate-600">Línea base por definir</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5">Fuente propuesta: Analítica web (Implementación por verificar)</span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="mt-3 pt-2 border-t border-slate-200 text-[11px] text-slate-400">
+              * Período anterior: -- | Meta por definir
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3. DETALLE DE CONVERSIONES (Gráficos de barras y desglose) -->
+      <div class="bg-white rounded-2xl border border-slate-300 shadow-sm p-5 md:p-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#69A57C]">Desglose de Conversiones</span>
+            <h3 class="text-base md:text-lg font-bold text-slate-900">Detalle de conversiones</h3>
+            <p class="text-xs text-slate-500">Gráficos de barras para las categorías generales definidas en el informe: contacto, voluntariado y colaboración/donación</p>
+          </div>
+          <span class="text-xs text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-md">
+            Implementación y medición por verificar
+          </span>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          <!-- Gráfico de barras: Envíos por categoría general -->
+          <div class="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-4">
+            <div class="flex justify-between items-center">
+              <h4 class="text-sm font-bold text-slate-800">Envíos de formularios por categoría</h4>
+              <span class="text-[11px] text-slate-500">Gráfico de barras</span>
+            </div>
+            <p class="text-xs text-slate-500">Comparación de respuestas según el tipo de conversión establecido.</p>
+
+            <div class="space-y-4 pt-1">
+              
+              <!-- Categoría 1: Contacto -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-medium text-slate-700">
+                  <span class="font-bold text-slate-800">1. Contacto</span>
+                  <span class="text-slate-600 font-semibold">Línea base por definir</span>
+                </div>
+                <div class="w-full bg-white rounded-lg h-6 border-2 border-dashed border-slate-300 flex items-center px-3">
+                  <span class="text-[11px] text-slate-400">Implementación y medición por verificar</span>
+                </div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Período anterior: --</span>
+                  <span>Meta por definir</span>
+                </div>
+              </div>
+
+              <!-- Categoría 2: Voluntariado -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-medium text-slate-700">
+                  <span class="font-bold text-slate-800">2. Voluntariado</span>
+                  <span class="text-slate-600 font-semibold">Línea base por definir</span>
+                </div>
+                <div class="w-full bg-white rounded-lg h-6 border-2 border-dashed border-slate-300 flex items-center px-3">
+                  <span class="text-[11px] text-slate-400">Implementación y medición por verificar</span>
+                </div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Período anterior: --</span>
+                  <span>Meta por definir</span>
+                </div>
+              </div>
+
+              <!-- Categoría 3: Colaboración/donación -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-medium text-slate-700">
+                  <span class="font-bold text-slate-800">3. Colaboración/donación</span>
+                  <span class="text-slate-600 font-semibold">Línea base por definir</span>
+                </div>
+                <div class="w-full bg-white rounded-lg h-6 border-2 border-dashed border-slate-300 flex items-center px-3">
+                  <span class="text-[11px] text-slate-400">Implementación y medición por verificar</span>
+                </div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Período anterior: --</span>
+                  <span>Meta por definir</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Gráfico de barras: Tasa de conversión por canal -->
+          <div class="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-4">
+            <div class="flex justify-between items-center">
+              <h4 class="text-sm font-bold text-slate-800">Tasa de conversión por canal digital (%)</h4>
+              <span class="text-[11px] text-slate-500">Gráfico de barras</span>
+            </div>
+            <p class="text-xs text-slate-500">Comparación de la tasa de conversión según el canal de origen del visitante.</p>
+
+            <div class="space-y-4 pt-1">
+              
+              <!-- Tasa Orgánico -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-medium text-slate-700">
+                  <span class="font-bold text-slate-800">Sitio Web (Búsqueda orgánica)</span>
+                  <span class="text-slate-600 font-semibold">Línea base por definir</span>
+                </div>
+                <div class="w-full bg-white rounded-lg h-6 border-2 border-dashed border-slate-300 flex items-center px-3">
+                  <span class="text-[11px] text-slate-400">Implementación y medición por verificar</span>
+                </div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Período anterior: --</span>
+                  <span>Meta por definir</span>
+                </div>
+              </div>
+
+              <!-- Tasa Instagram -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-medium text-slate-700">
+                  <span class="font-bold text-slate-800">Instagram (Perfil y contenido)</span>
+                  <span class="text-slate-600 font-semibold">Línea base por definir</span>
+                </div>
+                <div class="w-full bg-white rounded-lg h-6 border-2 border-dashed border-slate-300 flex items-center px-3">
+                  <span class="text-[11px] text-slate-400">Implementación y medición por verificar</span>
+                </div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Período anterior: --</span>
+                  <span>Meta por definir</span>
+                </div>
+              </div>
+
+              <!-- Tasa Otros -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-medium text-slate-700">
+                  <span class="font-bold text-slate-800">Otros canales / Directo</span>
+                  <span class="text-slate-600 font-semibold">Línea base por definir</span>
+                </div>
+                <div class="w-full bg-white rounded-lg h-6 border-2 border-dashed border-slate-300 flex items-center px-3">
+                  <span class="text-[11px] text-slate-400">Implementación y medición por verificar</span>
+                </div>
+                <div class="flex justify-between text-[11px] text-slate-400">
+                  <span>Período anterior: --</span>
+                  <span>Meta por definir</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tabla Estructurada de Conversiones -->
+        <div class="mt-6 overflow-x-auto">
+          <table class="w-full text-left text-xs border border-slate-200 rounded-xl overflow-hidden">
+            <thead class="bg-slate-100 text-slate-700 uppercase font-bold text-[11px] border-b border-slate-200">
+              <tr>
+                <th class="p-3">Categoría de Conversión</th>
+                <th class="p-3">Fuente Propuesta</th>
+                <th class="p-3 text-center">Resultado Actual</th>
+                <th class="p-3 text-center">Período Anterior</th>
+                <th class="p-3 text-center">Meta</th>
+                <th class="p-3 text-center">Estado</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white">
+              <tr>
+                <td class="p-3 font-bold text-slate-800">Contacto</td>
+                <td class="p-3 text-slate-600">Herramienta de analítica web / Sistema de formularios</td>
+                <td class="p-3 text-center font-semibold text-slate-700 bg-slate-50">Línea base por definir</td>
+                <td class="p-3 text-center text-slate-600 font-semibold">--</td>
+                <td class="p-3 text-center text-slate-600 font-semibold">Meta por definir</td>
+                <td class="p-3 text-center"><span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 text-[10px] font-semibold border border-amber-200">Implementación por verificar</span></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-slate-800">Voluntariado</td>
+                <td class="p-3 text-slate-600">Herramienta de analítica web / Sistema de formularios</td>
+                <td class="p-3 text-center font-semibold text-slate-700 bg-slate-50">Línea base por definir</td>
+                <td class="p-3 text-center text-slate-600 font-semibold">--</td>
+                <td class="p-3 text-center text-slate-600 font-semibold">Meta por definir</td>
+                <td class="p-3 text-center"><span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 text-[10px] font-semibold border border-amber-200">Implementación por verificar</span></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-slate-800">Colaboración/donación</td>
+                <td class="p-3 text-slate-600">Herramienta de analítica web / Sistema de formularios</td>
+                <td class="p-3 text-center font-semibold text-slate-700 bg-slate-50">Línea base por definir</td>
+                <td class="p-3 text-center text-slate-600 font-semibold">--</td>
+                <td class="p-3 text-center text-slate-600 font-semibold">Meta por definir</td>
+                <td class="p-3 text-center"><span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 text-[10px] font-semibold border border-amber-200">Implementación por verificar</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- PIE DE PÁGINA METODOLÓGICO                                -->
+    <!-- ========================================================= -->
+    <footer class="bg-white rounded-2xl border border-slate-300 p-5 text-xs text-slate-500 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-[#000FA0] font-bold">
+          JN
+        </div>
+        <div>
+          <span class="font-bold text-slate-800 block">Corporación Jesús Niño &bull; Propuesta de Medición Digital</span>
+          <span class="text-slate-400 text-[11px]">Estructura metodológica preliminar &bull; Sin asunción de herramientas o configuraciones previas.</span>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 text-[11px]">
+        <span class="bg-slate-100 text-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 font-bold">
+          Frecuencia de actualización: mensual
+        </span>
+        <span class="text-slate-400">
+          Wireframe v2.0 Corregido
+        </span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- SCRIPT PARA CONMUTACIÓN DE VISTAS -->
+  <script>
+    function switchView(viewName) {
+      const viewEjecutiva = document.getElementById('view-ejecutiva');
+      const viewDetalle = document.getElementById('view-detalle');
+      const btnEjecutiva = document.getElementById('btn-tab-ejecutiva');
+      const btnDetalle = document.getElementById('btn-tab-detalle');
+
+      if (viewName === 'ejecutiva') {
+        viewEjecutiva.classList.remove('hidden');
+        viewDetalle.classList.add('hidden');
+        
+        btnEjecutiva.className = "flex-1 sm:flex-initial px-5 py-2 rounded-lg text-sm font-semibold transition-all bg-white text-[#000FA0] shadow-sm border border-slate-200";
+        btnDetalle.className = "flex-1 sm:flex-initial px-5 py-2 rounded-lg text-sm font-medium transition-all text-slate-600 hover:text-slate-900";
+      } else {
+        viewEjecutiva.classList.add('hidden');
+        viewDetalle.classList.remove('hidden');
+
+        btnDetalle.className = "flex-1 sm:flex-initial px-5 py-2 rounded-lg text-sm font-semibold transition-all bg-white text-[#000FA0] shadow-sm border border-slate-200";
+        btnEjecutiva.className = "flex-1 sm:flex-initial px-5 py-2 rounded-lg text-sm font-medium transition-all text-slate-600 hover:text-slate-900";
+      }
+    }
+  </script>
+</body>
+</html>
